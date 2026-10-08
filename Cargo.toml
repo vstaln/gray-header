@@ -1,0 +1,17 @@
+[package]
+name = "gray-header"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.91"
+license = "MIT"
+description = "Inject ~/.gray/header.txt banner/preferences into every turn (port of pi's system-prompt-header)."
+
+[[bin]]
+name = "gray-header"
+path = "src/main.rs"
+
+[dependencies]
+serde_json = "1"
+
+[profile.release]
+strip = true
