@@ -4,7 +4,7 @@ version = "0.1.0"
 edition = "2024"
 rust-version = "1.91"
 license = "MIT"
-description = "Inject ~/.gray/header.txt banner/preferences into every turn (port of pi's system-prompt-header)."
+description = "Inject ~/.gray/header.txt banner/preferences into every turn "
 
 [[bin]]
 name = "gray-header"

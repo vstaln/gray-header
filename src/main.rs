@@ -1,7 +1,7 @@
 //! gray-header — inject `~/.gray/header.txt` into every turn.
 //!
-//! Port of pi's `system-prompt-header` extension, adapted to the gray wire:
-//! `prompt/context` returns the contents of `<gray-home>/header.txt` — a
+//! On `prompt/context` the sidecar returns the contents of
+//! `<gray-home>/header.txt` — a
 //! user-managed banner/preferences file ("always be terse") — or `{}` when
 //! the file is missing or empty. `/header show` prints the current header;
 //! `/header edit-hint` prints the file path to edit.
