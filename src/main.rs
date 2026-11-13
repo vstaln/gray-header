@@ -19,6 +19,7 @@ fn manifest() -> Value {
         "tools": [],
         "description": "prepend your header text to every turn",
         "commands": ["/header"],
+        "command_descriptions": {"/header": "show the injected header file"},
         "hooks": ["prompt/context"],
     })
 }
