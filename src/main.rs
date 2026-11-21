@@ -102,7 +102,9 @@ fn main() -> std::io::Result<()> {
     let mut stdout = std::io::stdout();
     for line in stdin.lock().lines() {
         let line = line?;
-        let Ok(req) = serde_json::from_str::<Value>(&line) else { continue };
+        let Ok(req) = serde_json::from_str::<Value>(&line) else {
+            continue;
+        };
         let (reply, exit) = handle(&req);
         if let Some(reply) = reply {
             writeln!(stdout, "{reply}")?;
@@ -120,7 +122,9 @@ mod tests {
     use super::*;
 
     fn call(method: &str, params: Value) -> Value {
-        handle(&json!({ "id": 1, "method": method, "params": params })).0.unwrap()
+        handle(&json!({ "id": 1, "method": method, "params": params }))
+            .0
+            .unwrap()
     }
 
     /// A fresh temp dir that removes itself on drop.
@@ -206,16 +210,27 @@ mod tests {
         let _lock = ENV_LOCK.lock().unwrap();
         let dir = TempDir::new();
         let _g = EnvGuard::set_home(&dir);
-        let r = call("command/run", json!({ "name": "/header", "argv": ["show"] }));
-        assert!(r["result"]["text"].as_str().unwrap().contains("no header set"));
+        let r = call(
+            "command/run",
+            json!({ "name": "/header", "argv": ["show"] }),
+        );
+        assert!(
+            r["result"]["text"]
+                .as_str()
+                .unwrap()
+                .contains("no header set")
+        );
         std::fs::write(dir.0.join("header.txt"), "banner!").unwrap();
-        let r = call("command/run", json!({ "name": "/header", "argv": ["show"] }));
+        let r = call(
+            "command/run",
+            json!({ "name": "/header", "argv": ["show"] }),
+        );
         assert!(r["result"]["text"].as_str().unwrap().contains("banner!"));
-        let r = call("command/run", json!({ "name": "/header", "argv": ["edit-hint"] }));
-        assert!(r["result"]["text"]
-            .as_str()
-            .unwrap()
-            .contains("header.txt"));
+        let r = call(
+            "command/run",
+            json!({ "name": "/header", "argv": ["edit-hint"] }),
+        );
+        assert!(r["result"]["text"].as_str().unwrap().contains("header.txt"));
     }
 
     #[test]
